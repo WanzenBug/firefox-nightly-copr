@@ -39,8 +39,8 @@ This package is a package built directly from Mozilla's nightly tarball. This pa
 ##Build Instructions
 
 %build
-wget -c --no-check-certificate -P %{_builddir} "https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=%{arch}"
-tar -jxvf firefox-*.en-US.linux-*.tar.bz2  -C %{_builddir}
+wget -c --no-check-certificate -P %{_builddir} -O nightly.tar.bz2 "https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=%{arch}"
+tar -jxvf nightly.tar.bz2  -C %{_builddir}
 
 ## Install Instructions
 
