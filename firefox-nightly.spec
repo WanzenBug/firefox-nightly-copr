@@ -2,13 +2,12 @@ AutoReqProv: no
 
 ##Init variables
 
-%global current 57.0a1
 %global packver 57
 %global _optdir /opt
 %ifarch x86_64
-%global arch x86_64
+%global arch linux64
 %else
-%global arch i686
+%global arch linux
 %endif
 
 ##Package Version and Licences
@@ -40,8 +39,8 @@ This package is a package built directly from Mozilla's nightly tarball. This pa
 ##Build Instructions
 
 %build
-wget -c --no-check-certificate -P %{_builddir} https://archive.mozilla.org/pub/firefox/nightly/latest-mozilla-central/firefox-%{current}.en-US.linux-%{arch}.tar.bz2
-tar -jxvf firefox-%{current}.en-US.linux-*.tar.bz2  -C %{_builddir}
+wget -c --no-check-certificate -P %{_builddir} https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=%{arch}
+tar -jxvf firefox-*.en-US.linux-*.tar.bz2  -C %{_builddir}
 
 ## Install Instructions
 
