@@ -2,7 +2,7 @@ AutoReqProv: no
 
 ##Init variables
 
-%global packver 69
+%global packver 70
 %global _optdir /opt
 %ifarch x86_64
 %global arch linux64
@@ -45,6 +45,10 @@ tar -jxvf nightly.tar.bz2  -C %{_builddir}
 ## Install Instructions
 
 %install
+
+sed -i 's/python/python3/' %{_builddir}/firefox/fix_linux_stack.py
+sed -i 's/python/python3/' %{_builddir}/firefox/fix_stack_using_bpsyms.py
+sed -i 's/python/python3/' %{_builddir}/firefox/dmd.py
 
 install -dm 755 %{buildroot}/usr/{bin,share/{applications,icons/hicolor/128x128/apps},opt}
 install -dm 755 %{buildroot}/%{_optdir}/firefox-nightly/browser/defaults/preferences/
