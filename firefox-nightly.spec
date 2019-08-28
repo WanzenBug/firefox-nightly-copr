@@ -78,6 +78,7 @@ EOF
 ## Disable Update Alert
 echo '// Disable Update Alert
 pref("app.update.enabled", false);' > %{buildroot}/opt/firefox-nightly/browser/defaults/preferences/vendor.js
+pref("app.update.silent", true);' > %{buildroot}/opt/firefox-nightly/browser/defaults/preferences/vendor.js
 
 ##Cleanup
 
