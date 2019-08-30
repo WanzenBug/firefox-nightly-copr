@@ -77,8 +77,8 @@ Categories=Network;WebBrowser;
 Keywords=web;browser;internet;
 EOF
 ## Disable Update Alert
-%{__mkdir_p} %{buildroot}/firefox/distribution
-%{__cp} -p %{Source0} %{buildroot}/firefox/distribution/policies.json
+%{__mkdir_p} %{buildroot}/%{_optdir}/firefox-nightly/distribution
+%{__cp} -p %{SOURCE0} %{buildroot}/%{_optdir}/firefox-nightly/distribution/policies.json
 
 ##Cleanup
 
