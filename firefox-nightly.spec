@@ -17,6 +17,7 @@ Name: firefox-nightly
 Version: %{packver}
 Release: 0a1_%(date +%%y%%m%%d)%{?dist}
 License: MPLv1.1 or GPLv2+ or LGPLv2+
+Source0: default-policies.json
 Group: Applications/Internet
 URL: http://www.nightly.mozilla.org/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -76,8 +77,8 @@ Categories=Network;WebBrowser;
 Keywords=web;browser;internet;
 EOF
 ## Disable Update Alert
-echo '// Disable Update Alert
-pref("app.update.enabled", false);' > %{buildroot}/opt/firefox-nightly/browser/defaults/preferences/vendor.js
+%{__mkdir_p} %{buildroot}/%{_optdir}/firefox-nightly/distribution
+%{__cp} -p %{SOURCE0} %{buildroot}/%{_optdir}/firefox-nightly/distribution/policies.json
 
 ##Cleanup
 
