@@ -48,6 +48,7 @@ tar -jxvf nightly.tar.bz2  -C %{_builddir}
 %install
 
 sed -i 's/python/python3/' %{_builddir}/firefox/fix_linux_stack.py
+sed -i 's/python/python3/' %{_builddir}/firefox/fix_stacks.py
 sed -i 's/python/python3/' %{_builddir}/firefox/fix_stack_using_bpsyms.py
 sed -i 's/python/python3/' %{_builddir}/firefox/dmd.py
 
