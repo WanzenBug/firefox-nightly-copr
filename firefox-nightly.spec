@@ -43,13 +43,15 @@ This package is a package built directly from Mozilla's nightly tarball. This pa
 wget -c --no-check-certificate -P %{_builddir} -O nightly.tar.bz2 "https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=%{arch}"
 tar -jxvf nightly.tar.bz2  -C %{_builddir}
 
+
+
 ## Install Instructions
 
 %install
 
-sed -i 's/python/python3/' %{_builddir}/firefox/fix_linux_stack.py
-sed -i 's/python/python3/' %{_builddir}/firefox/fix_stack_using_bpsyms.py
-sed -i 's/python/python3/' %{_builddir}/firefox/dmd.py
+## Firefox explicitly supports python3, so its also our choice of interpreter. Note that there is no dependency on python.
+## These scripts are only used when generating debug information in case of a crash, so not critical to the operation of firefox.
+find %{_builddir} -name '*.py' -type f -exec sed -i -e 's,#!/usr/bin/python,#!/usr/bin/python3,' -e 's,/usr/bin/env python,/usr/bin/env python3,' -s {} \;
 
 install -dm 755 %{buildroot}/usr/{bin,share/{applications,icons/hicolor/128x128/apps},opt}
 install -dm 755 %{buildroot}/%{_optdir}/firefox-nightly/browser/defaults/preferences/
