@@ -18,7 +18,8 @@ Version: %{packver}
 Release: 0a1_%(date +%%y%%m%%d)%{?dist}
 License: MPLv1.1 or GPLv2+ or LGPLv2+
 Source0: https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=%{arch}#/%{name}-%{version}.tar.gz
-Source1: default-policies.json
+Source1: firefox-nightly.desktop
+Source2: default-policies.json
 Group: Applications/Internet
 URL: http://www.nightly.mozilla.org/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -52,23 +53,8 @@ install -m644 %{_builddir}/firefox/browser/chrome/icons/default/default128.png %
 cp -rf %{_builddir}/firefox/* %{buildroot}/opt/firefox-nightly/
 ln -s /opt/firefox-nightly/firefox %{buildroot}/usr/bin/firefox-nightly
 
-cat > %{buildroot}/%{_datadir}/applications/%{name}.desktop << EOF
+%{__cp} -p %{SOURCE1} %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
-## Desktop File
-
-[Desktop Entry]
-Version=%{current}
-Name=Nightly
-GenericName=Firefox Nightly
-Comment=Browse the Web
-Exec=firefox-nightly %u
-Icon=firefox-nightly.png
-Terminal=false
-Type=Application
-MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;text/mml;x-scheme-handler/http;x-scheme-handler/https;
-Categories=Network;WebBrowser;
-Keywords=web;browser;internet;
-EOF
 ## Disable Update Alert
 %{__mkdir_p} %{buildroot}/%{_optdir}/firefox-nightly/distribution
 %{__cp} -p %{SOURCE1} %{buildroot}/%{_optdir}/firefox-nightly/distribution/policies.json
