@@ -17,13 +17,11 @@ Name: firefox-nightly
 Version: %{packver}
 Release: 0a1_%(date +%%y%%m%%d)%{?dist}
 License: MPLv1.1 or GPLv2+ or LGPLv2+
-Source0: default-policies.json
+Source0: https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=%{arch}#/%{name}-%{version}.tar.gz
+Source1: default-policies.json
 Group: Applications/Internet
 URL: http://www.nightly.mozilla.org/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-
-##DEPS
-BuildRequires: wget tar
 
 Requires: alsa-lib libX11 libXcomposite libXdamage libnotify libXt libXext glib2 dbus-glib libjpeg-turbo cairo-gobject libffi fontconfig freetype libgcc gtk3 gtk2 hunspell zlib
 Requires: nspr >= 4.10.8
@@ -36,14 +34,7 @@ Requires: sqlite >= 3.8.10.2
 This package is a package built directly from Mozilla's nightly tarball. This package will be updated weekly if not sooner.
 
 %prep
-
-##Build Instructions
-
-%build
-wget -c --no-check-certificate -P %{_builddir} -O nightly.tar.bz2 "https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=%{arch}"
-tar -jxvf nightly.tar.bz2  -C %{_builddir}
-
-
+%setup -q -n firefox
 
 ## Install Instructions
 
@@ -80,7 +71,7 @@ Keywords=web;browser;internet;
 EOF
 ## Disable Update Alert
 %{__mkdir_p} %{buildroot}/%{_optdir}/firefox-nightly/distribution
-%{__cp} -p %{SOURCE0} %{buildroot}/%{_optdir}/firefox-nightly/distribution/policies.json
+%{__cp} -p %{SOURCE1} %{buildroot}/%{_optdir}/firefox-nightly/distribution/policies.json
 
 ##Cleanup
 
